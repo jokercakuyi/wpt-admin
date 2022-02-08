@@ -22,6 +22,7 @@ module.exports = {
       all: '全渠道',
       online: '线上',
       stores: '门店',
+      company:'企业信息'
     },
     HK: {
       introduce: '指標說明',

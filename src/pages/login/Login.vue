@@ -2,10 +2,10 @@
   <common-layout>
     <div class="top">
       <div class="header">
-        <img alt="logo" class="logo" src="@/assets/img/logo.png" />
+<!--        <img alt="logo" class="logo" src="@/assets/img/logo.png" />-->
         <span class="title">{{systemName}}</span>
       </div>
-      <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+<!--      <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div>-->
     </div>
     <div class="login">
       <a-form @submit="onSubmit" :form="form">
@@ -16,7 +16,7 @@
               <a-input
                 autocomplete="autocomplete"
                 size="large"
-                placeholder="admin"
+                placeholder="请输入账号"
                 v-decorator="['name', {rules: [{ required: true, message: '请输入账户名', whitespace: true}]}]"
               >
                 <a-icon slot="prefix" type="user" />
@@ -25,7 +25,7 @@
             <a-form-item>
               <a-input
                 size="large"
-                placeholder="888888"
+                placeholder="请输入密码"
                 autocomplete="autocomplete"
                 type="password"
                 v-decorator="['password', {rules: [{ required: true, message: '请输入密码', whitespace: true}]}]"
@@ -34,40 +34,40 @@
               </a-input>
             </a-form-item>
           </a-tab-pane>
-          <a-tab-pane tab="手机号登录" key="2">
-            <a-form-item>
-              <a-input size="large" placeholder="mobile number" >
-                <a-icon slot="prefix" type="mobile" />
-              </a-input>
-            </a-form-item>
-            <a-form-item>
-              <a-row :gutter="8" style="margin: 0 -4px">
-                <a-col :span="16">
-                  <a-input size="large" placeholder="captcha">
-                    <a-icon slot="prefix" type="mail" />
-                  </a-input>
-                </a-col>
-                <a-col :span="8" style="padding-left: 4px">
-                  <a-button style="width: 100%" class="captcha-button" size="large">获取验证码</a-button>
-                </a-col>
-              </a-row>
-            </a-form-item>
-          </a-tab-pane>
+<!--          <a-tab-pane tab="手机号登录" key="2">-->
+<!--            <a-form-item>-->
+<!--              <a-input size="large" placeholder="mobile number" >-->
+<!--                <a-icon slot="prefix" type="mobile" />-->
+<!--              </a-input>-->
+<!--            </a-form-item>-->
+<!--            <a-form-item>-->
+<!--              <a-row :gutter="8" style="margin: 0 -4px">-->
+<!--                <a-col :span="16">-->
+<!--                  <a-input size="large" placeholder="captcha">-->
+<!--                    <a-icon slot="prefix" type="mail" />-->
+<!--                  </a-input>-->
+<!--                </a-col>-->
+<!--                <a-col :span="8" style="padding-left: 4px">-->
+<!--                  <a-button style="width: 100%" class="captcha-button" size="large">获取验证码</a-button>-->
+<!--                </a-col>-->
+<!--              </a-row>-->
+<!--            </a-form-item>-->
+<!--          </a-tab-pane>-->
         </a-tabs>
         <div>
           <a-checkbox :checked="true" >自动登录</a-checkbox>
-          <a style="float: right">忘记密码</a>
+<!--          <a style="float: right">忘记密码</a>-->
         </div>
         <a-form-item>
           <a-button :loading="logging" style="width: 100%;margin-top: 24px" size="large" htmlType="submit" type="primary">登录</a-button>
         </a-form-item>
-        <div>
-          其他登录方式
-          <a-icon class="icon" type="alipay-circle" />
-          <a-icon class="icon" type="taobao-circle" />
-          <a-icon class="icon" type="weibo-circle" />
-          <router-link style="float: right" to="/dashboard/workplace" >注册账户</router-link>
-        </div>
+<!--        <div>-->
+<!--          其他登录方式-->
+<!--          <a-icon class="icon" type="alipay-circle" />-->
+<!--          <a-icon class="icon" type="taobao-circle" />-->
+<!--          <a-icon class="icon" type="weibo-circle" />-->
+<!--          <router-link style="float: right" to="/dashboard/workplace" >注册账户</router-link>-->
+<!--        </div>-->
       </a-form>
     </div>
   </common-layout>
@@ -75,7 +75,8 @@
 
 <script>
 import CommonLayout from '@/layouts/CommonLayout'
-import {login, getRoutesConfig} from '@/services/user'
+// import {login, getRoutesConfig} from '@/services/user'
+import {login} from '@/services/user'
 import {setAuthorization} from '@/utils/request'
 import {loadRoutes} from '@/utils/routerUtil'
 import {mapMutations} from 'vuex'
@@ -98,7 +99,9 @@ export default {
   methods: {
     ...mapMutations('account', ['setUser', 'setPermissions', 'setRoles']),
     onSubmit (e) {
+      console.log(e);
       e.preventDefault()
+      console.log(e);
       this.form.validateFields((err) => {
         if (!err) {
           this.logging = true
@@ -109,21 +112,56 @@ export default {
       })
     },
     afterLogin(res) {
+      console.log(res.data);
       this.logging = false
       const loginRes = res.data
-      if (loginRes.code >= 0) {
+      if (loginRes.code === 200) {
         const {user, permissions, roles} = loginRes.data
         this.setUser(user)
         this.setPermissions(permissions)
         this.setRoles(roles)
         setAuthorization({token: loginRes.data.token, expireAt: new Date(loginRes.data.expireAt)})
         // 获取路由配置
-        getRoutesConfig().then(result => {
-          const routesConfig = result.data.data
+        // getRoutesConfig().then(result => {
+        //   console.log(result);
+          const routesConfig = [{
+            router: 'root',
+            children: [
+              {
+                router: 'dashboard',
+                // children: ['workplace', 'analysis'],
+                children: ['analysis']
+              },
+              {
+                router: 'form',
+                children: ['basicForm', 'stepForm', 'advanceForm']
+              },
+              {
+                router: 'basicForm',
+                name: '验权表单',
+                icon: 'file-excel',
+                authority: 'queryForm'
+              },
+              {
+                router: 'antdv',
+                path: 'antdv',
+                name: 'Ant Design Vue',
+                icon: 'ant-design',
+                link: 'https://www.antdv.com/docs/vue/introduce-cn/'
+              },
+              {
+                router: 'document',
+                path: 'document',
+                name: '使用文档',
+                icon: 'file-word',
+                link: 'https://iczer.gitee.io/vue-antd-admin-docs/'
+              }
+            ]
+          }]
           loadRoutes(routesConfig)
-          this.$router.push('/dashboard/workplace')
+          this.$router.push('/dashboard/analysis')
           this.$message.success(loginRes.message, 3)
-        })
+        // })
       } else {
         this.error = loginRes.message
       }

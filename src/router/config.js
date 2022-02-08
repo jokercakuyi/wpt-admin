@@ -28,7 +28,7 @@ const options = {
       children: [
         {
           path: 'dashboard',
-          name: 'Dashboard',
+          name: '工作台',
           meta: {
             icon: 'dashboard'
           },
@@ -40,13 +40,19 @@ const options = {
               meta: {
                 page: {
                   closable: false
-                }
+                },
+                invisible: true
               },
               component: () => import('@/pages/dashboard/workplace'),
             },
             {
               path: 'analysis',
               name: '分析页',
+              meta: {
+                page: {
+                  closable: false
+                }
+              },
               component: () => import('@/pages/dashboard/analysis'),
             }
           ]
@@ -58,7 +64,8 @@ const options = {
             icon: 'form',
             page: {
               cacheAble: false
-            }
+            },
+            invisible: true
           },
           component: PageView,
           children: [
@@ -80,10 +87,167 @@ const options = {
           ]
         },
         {
+          path: 'culture',
+          name: '拍品',
+          meta: {
+            icon: 'table',
+            invisible: false
+          },
+          component: PageView,
+          children: [
+            {
+              path: 'list',
+              name: '拍品包列表',
+              meta: {
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/list/productList'),
+            },
+            {
+              path: 'detail',
+              name: '拍品列表',
+              meta: {
+                invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/detail/productDetail'),
+            },
+            {
+              path: 'add',
+              name: '添加拍品',
+              meta: {
+                invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/add/addProduct'),
+            },
+            {
+              path: 'innerDetail',
+              name: '拍品详情',
+              meta: {
+                invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/detail/productInnerDetail'),
+            }
+          ]
+        },
+        {
+          path: 'order',
+          name: '订单',
+          meta: {
+            icon: 'table',
+            invisible: false
+          },
+          component: PageView,
+          children: [
+            {
+              path: 'list',
+              name: '订单列表',
+              meta: {
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/list/orderList'),
+            },
+            {
+              path: 'detail',
+              name: '订单详情',
+              meta: {
+                invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/detail/orderDetail'),
+            }
+          ]
+        },
+        {
+          path: 'article',
+          name: '资讯',
+          meta: {
+            icon: 'table',
+            invisible: false
+          },
+          component: PageView,
+          children: [
+            {
+              path: 'list',
+              name: '资讯列表',
+              meta: {
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/list/articleList'),
+            },
+            {
+              path: 'detail',
+              name: '资讯详情',
+              meta: {
+                invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/detail/articleDetail'),
+            },
+            {
+              path: 'add',
+              name: '上传资讯',
+              meta: {
+                // invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/add/addArticle'),
+            }
+          ]
+        },
+        {
+          path: 'setting',
+          name: '设置',
+          meta: {
+            icon: 'project',
+            invisible: false
+          },
+          component: PageView,
+          children: [
+            {
+              path: 'add',
+              name: '添加/编辑自提点',
+              meta: {
+                invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/add/addSpot'),
+            },
+            {
+              path: 'spot',
+              name: '自提点',
+              meta: {
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/setting/spot'),
+            },
+            {
+              path: 'manuInfo',
+              name: '编辑企业信息',
+              meta: {
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/setting/manuInfo'),
+            },
+            {
+              path: 'changePassword',
+              name: '修改密码',
+              meta: {
+                invisible: true
+                // authority: 'queryForm',
+              },
+              component: () => import('@/pages/culture/setting/changePassword'),
+            }
+          ]
+        },
+        {
           path: 'list',
           name: '列表页',
           meta: {
-            icon: 'table'
+            icon: 'table',
+            invisible: true
           },
           component: PageView,
           children: [
@@ -91,7 +255,7 @@ const options = {
               path: 'query',
               name: '查询表格',
               meta: {
-                authority: 'queryForm',
+                // authority: 'queryForm',
               },
               component: () => import('@/pages/list/QueryList'),
             },
@@ -142,7 +306,8 @@ const options = {
           path: 'details',
           name: '详情页',
           meta: {
-            icon: 'profile'
+            icon: 'profile',
+            invisible: true
           },
           component: BlankView,
           children: [
@@ -163,6 +328,7 @@ const options = {
           name: '结果页',
           meta: {
             icon: 'check-circle-o',
+            invisible: true
           },
           component: PageView,
           children: [
@@ -183,6 +349,7 @@ const options = {
           name: '异常页',
           meta: {
             icon: 'warning',
+            invisible: true
           },
           component: BlankView,
           children: [
@@ -207,7 +374,8 @@ const options = {
           path: 'components',
           name: '内置组件',
           meta: {
-            icon: 'appstore-o'
+            icon: 'appstore-o',
+            invisible: true
           },
           component: PageView,
           children: [
@@ -235,7 +403,8 @@ const options = {
             icon: 'file-excel',
             authority: {
               permission: 'form'
-            }
+            },
+            invisible: true
           },
           component: () => import('@/pages/form/basic')
         },
@@ -246,7 +415,8 @@ const options = {
             icon: 'project',
             query: {
               name: '菜单默认参数'
-            }
+            },
+            invisible: true
           },
           component: () => import('@/pages/Demo')
         },
@@ -257,7 +427,8 @@ const options = {
             icon: 'project',
             params: {
               id: 123
-            }
+            },
+            invisible: true
           },
           component: () => import('@/pages/Demo')
         },
@@ -266,7 +437,8 @@ const options = {
           path: 'antdv',
           meta: {
             icon: 'ant-design',
-            link: 'https://www.antdv.com/docs/vue/introduce-cn/'
+            link: 'https://www.antdv.com/docs/vue/introduce-cn/',
+            invisible: true
           }
         },
         {
@@ -274,7 +446,8 @@ const options = {
           path: 'document',
           meta: {
             icon: 'file-word',
-            link: 'https://iczer.gitee.io/vue-antd-admin-docs/'
+            link: 'https://iczer.gitee.io/vue-antd-admin-docs/',
+            invisible: true
           }
         }
       ]

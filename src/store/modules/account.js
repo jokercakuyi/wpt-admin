@@ -4,7 +4,8 @@ export default {
     user: undefined,
     permissions: null,
     roles: null,
-    routesConfig: null
+    routesConfig: null,
+    packetId:null
   },
   getters: {
     user: state => {
@@ -56,8 +57,12 @@ export default {
     }
   },
   mutations: {
+    setPacketId(state, packetId){
+      state.packetId=packetId
+    },
     setUser (state, user) {
       state.user = user
+      console.log(user);
       localStorage.setItem(process.env.VUE_APP_USER_KEY, JSON.stringify(user))
     },
     setPermissions(state, permissions) {

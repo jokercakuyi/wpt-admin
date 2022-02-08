@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie'
+import {logout} from '@/services/user';
 // 401拦截
 const resp401 = {
   /**
@@ -33,16 +34,22 @@ const resp401 = {
 const resp403 = {
   onFulfilled(response, options) {
     const {message} = options
+    const {router} = options
     if (response.code === 403) {
-      message.error('请求被拒绝')
+      message.error('登录已过期，请重新登录');
+      logout();
+      router.push('/login');
     }
     return response
   },
   onRejected(error, options) {
     const {message} = options
+    const {router} = options
     const {response} = error
     if (response.status === 403) {
-      message.error('请求被拒绝')
+      message.error('登录已过期，请重新登录');
+      logout();
+      router.push('/login');
     }
     return Promise.reject(error)
   }

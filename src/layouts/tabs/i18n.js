@@ -1,4 +1,4 @@
-module.exports = {
+module.expor = {
   messages: {
     CN: {
       closeLeft: '关闭左侧',

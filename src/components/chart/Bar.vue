@@ -17,7 +17,7 @@ const data = []
 for (let i = 0; i < 12; i += 1) {
   data.push({
     x: `${i + 1}月`,
-    y: Math.floor(Math.random() * 1000) + 200
+    y: 0
   })
 }
 const tooltip = [

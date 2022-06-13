@@ -294,9 +294,9 @@ export default {
       if (!isJpgOrPng) {
         this.$message.error('只能上传jpg格式!');
       }
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isLt2M = file.size / 1024 / 1024 < 3;
       if (!isLt2M) {
-        this.$message.error('图片不能大于2MB');
+        this.$message.error('图片不能大于3MB');
       }
       return isJpgOrPng && isLt2M;
     },

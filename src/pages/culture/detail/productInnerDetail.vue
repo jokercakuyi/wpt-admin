@@ -34,7 +34,7 @@
         自提地址：{{ info.site }}
       </a-descriptions-item>
       <a-descriptions-item label="拍品详情">
-        <img width="100" v-for="(item,key) in info.detailMobileHtml" :src="item" :key="key" @click="preview(item)">
+        <img width="100" style="height: 100px" v-for="(item,key) in info.detailMobileHtml" :src="item" :key="key" @click="preview(item)">
       </a-descriptions-item>
     </a-descriptions>
     <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">

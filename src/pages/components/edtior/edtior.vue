@@ -116,6 +116,7 @@ export default {
     // }
     // 创建编辑器
     editor.create();
+    // $('#div1').attr('style','height:auto;');
     setTimeout(()=>{
       editor.txt.html(this.text);
     },1000)
@@ -154,11 +155,15 @@ h3 {
 }
 .w-e-text-container {
 // 文本框里面的层级调低
-z-index: 1 !important;
+  height: auto !important;
+  z-index: 1 !important;
+}
+.w-e-text p{
+  margin:0;
 }
 .w-e-toolbar {
 // 给工具栏换行
-flex-wrap: wrap;
+  flex-wrap: wrap;
   z-index: 2 !important;
 }
 .w-e-menu {

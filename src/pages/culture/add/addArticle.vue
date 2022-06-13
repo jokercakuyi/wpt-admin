@@ -35,13 +35,13 @@
         </a-modal>
         <span>尺寸建议750x750（长方形模式）像素以上，大小2M以下</span>
       </a-form-model-item>
-      <a-form-model-item label="资讯正文">
+<!--      <a-form-model-item label="资讯正文">-->
       <richText
           ref="rich"
           :text="form.mobileHtml"
           @editorChange="editorChange"
       />
-      </a-form-model-item>
+<!--      </a-form-model-item>-->
       <a-form-model-item :wrapper-col="{ span: 12, offset: 5 }" style="margin-top: 150px">
         <a-button type="primary" @click="onSubmit(10)" v-if="!id">
           发布
@@ -113,9 +113,10 @@ export default {
     },
     '$route.query.id' (to, from) { //监听路由是否变化
       if(this.$route.path === '/article/add'){//仅在当前页面生效
+        console.log(to,from);
         if(to != from){
           console.log(to);
-          this.id = to;
+          this.id =  to;
           console.log(this.id);
           if (this.id != 0) {
             this.form={
@@ -139,7 +140,10 @@ export default {
   },
   mounted() {
     this.id=this.$route.query.id;
-    this.getInfo();
+    if(this.id&&this.id!=0){
+      console.log(1)
+      this.getInfo();
+    }
   },
   methods: {
     getRich(){
@@ -191,7 +195,8 @@ export default {
             })
           }else if(type===5){
             this.form.status=5;
-            if(!this.id){
+            console.log(this.id)
+            if(!Number(this.id)){
               insertNews(this.form).then(res=>{
                 console.log(res);
                 this.form={

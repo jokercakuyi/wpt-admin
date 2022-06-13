@@ -144,7 +144,7 @@ export default {
   },
   methods: {
     addNews(){
-      this.$openPage('/article/add');
+      this.$openPage('/article/add?id=0');
     },
     deleteNews(selectRow){
       var that=this;
